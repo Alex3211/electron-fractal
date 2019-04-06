@@ -9,11 +9,14 @@ var settings = {
   speed: 0.3,
   offset: 0,
   slices: 13,
+  arcAngle: 0.1,
+  strokeSize: 1,
   strokeColor: {
-    color: '#d90f0f',
+    color: '#FFF',
     backgroundColor: '#000000'
   },
-  mode: false
+  mode: 'preset 1',
+  lastModified: 'preset 1'
 };
 
 var width, height;
@@ -85,10 +88,10 @@ function draw() {
   bufferContext.fillStyle = 'red';
   bufferContext.beginPath();
 
-  if(settings.mode) {
-    bufferContext.arc(0, 0, radius, -(Math.PI * 0.8 + (Math.PI / settings.slices)), -(Math.PI * 0.5 - (Math.PI / settings.slices)));
-  } else {
-    bufferContext.arc(0, 0, radius, -(Math.PI * 0.5 + (Math.PI / settings.slices)), -(Math.PI * 0.5 - (Math.PI / settings.slices)));
+  if(settings.mode === 'preset 1') {
+    bufferContext.arc(0, 0, radius, -(Math.PI * settings.arcAngle + (Math.PI / settings.slices)), -(Math.PI * 0.5 - (Math.PI / settings.slices)));
+  } else if(settings.mode === 'tunnel') {
+    bufferContext.rect(0, 0, radius, -(Math.PI * settings.arcAngle + (Math.PI / settings.slices)), -(Math.PI * 0.5 - (Math.PI / settings.slices)));
   }
   bufferContext.lineTo(0, 0);
   bufferContext.closePath();
@@ -105,9 +108,6 @@ function draw() {
   }
 
   bufferContext.strokeStyle = settings.strokeColor.color;
-  console.log(document.querySelector('body'))
-  console.log(document.querySelector('body').style)
-  console.log(document.querySelector('body').style.backgroundColor)
   document.querySelector('body').style.backgroundColor = settings.strokeColor.backgroundColor;
 }
 
@@ -115,12 +115,25 @@ draw();
 
 var gui = new dat.GUI();
 gui.add(settings, 'animate');
-gui.add(settings, 'mode');
-gui.add(settings, 'scale', 0, 4).step(0.1);
+gui.add(settings, 'mode', ['preset 1', 'tunnel']).listen().onFinishChange((e) => {
+  if(!settings.lastModified !== 'tunnel' && settings.mode === 'tunnel') {
+    settings.scale = 1.2;
+    settings.arcAngle = 0.3;
+    settings.animate = true;
+    settings.angle = 0;
+    settings.iterations = 7;
+    settings.speed = 0.01;
+    settings.offset = 1;
+    settings.slices = 30;
+    settings.lastModified = 'tunnel';
+  }
+});
+gui.add(settings, 'scale', 0, 4).step(0.1).listen();
+gui.add(settings, 'arcAngle', 0, 2).step(0.1).listen();
 gui.add(settings, 'angle', 0, Math.PI);
-gui.add(settings, 'iterations', 0, 12).step(1);
-gui.add(settings, 'speed', 0, 2);
-gui.add(settings, 'offset', 0, Math.PI * 2);
-gui.add(settings, 'slices', 1, 40).step(1);
-gui.addColor(settings.strokeColor, 'color');
-gui.addColor(settings.strokeColor, 'backgroundColor');
+gui.add(settings, 'iterations', 0, 12).step(1).listen();
+gui.add(settings, 'speed', 0, 2).listen();
+gui.add(settings, 'offset', 0, Math.PI * 2).listen();
+gui.add(settings, 'slices', 1, 40).step(1).listen();
+gui.addColor(settings.strokeColor, 'color').listen();
+gui.addColor(settings.strokeColor, 'backgroundColor').listen();
