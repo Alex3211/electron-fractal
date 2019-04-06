@@ -18,7 +18,30 @@ var settings = {
   mode: 'preset 1',
   lastModified: 'preset 1'
 };
-
+function changeSettingsConfig() {
+  if(!settings.lastModified !== 'tunnel' && settings.mode === 'tunnel') {
+    settings.scale = 1.2;
+    settings.arcAngle = 0.3;
+    settings.animate = true;
+    settings.angle = 0;
+    settings.iterations = 7;
+    settings.speed = 0.01;
+    settings.offset = 1;
+    settings.slices = 30;
+    settings.lastModified = 'tunnel';
+  }
+  if(!settings.lastModified !== 'tunnel2' && settings.mode === 'tunnel2') {
+    settings.scale = 1.4;
+    settings.arcAngle = 1.7;
+    settings.animate = true;
+    settings.angle = 3.14;
+    settings.iterations = 5;
+    settings.speed = 0.02;
+    settings.offset = 0;
+    settings.slices = 40;
+    settings.lastModified = 'tunnel2';
+  }
+}
 var width, height;
 var canvas = document.querySelector('canvas');
 var context = canvas.getContext('2d');
@@ -90,7 +113,7 @@ function draw() {
 
   if(settings.mode === 'preset 1') {
     bufferContext.arc(0, 0, radius, -(Math.PI * settings.arcAngle + (Math.PI / settings.slices)), -(Math.PI * 0.5 - (Math.PI / settings.slices)));
-  } else if(settings.mode === 'tunnel') {
+  } else if(settings.mode === 'tunnel' || settings.mode === 'tunnel2') {
     bufferContext.rect(0, 0, radius, -(Math.PI * settings.arcAngle + (Math.PI / settings.slices)), -(Math.PI * 0.5 - (Math.PI / settings.slices)));
   }
   bufferContext.lineTo(0, 0);
@@ -115,18 +138,8 @@ draw();
 
 var gui = new dat.GUI();
 gui.add(settings, 'animate');
-gui.add(settings, 'mode', ['preset 1', 'tunnel']).listen().onFinishChange((e) => {
-  if(!settings.lastModified !== 'tunnel' && settings.mode === 'tunnel') {
-    settings.scale = 1.2;
-    settings.arcAngle = 0.3;
-    settings.animate = true;
-    settings.angle = 0;
-    settings.iterations = 7;
-    settings.speed = 0.01;
-    settings.offset = 1;
-    settings.slices = 30;
-    settings.lastModified = 'tunnel';
-  }
+gui.add(settings, 'mode', ['preset 1', 'tunnel', 'tunnel2']).listen().onFinishChange((e) => {
+  changeSettingsConfig();
 });
 gui.add(settings, 'scale', 0, 4).step(0.1).listen();
 gui.add(settings, 'arcAngle', 0, 2).step(0.1).listen();
