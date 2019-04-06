@@ -18,7 +18,9 @@ var settings = {
   mode: 'preset 1',
   lastModified: 'preset 1'
 };
+
 function changeSettingsConfig() {
+
   if(!settings.lastModified !== 'tunnel' && settings.mode === 'tunnel') {
     settings.scale = 1.2;
     settings.arcAngle = 0.3;
@@ -30,6 +32,7 @@ function changeSettingsConfig() {
     settings.slices = 30;
     settings.lastModified = 'tunnel';
   }
+  
   if(!settings.lastModified !== 'tunnel2' && settings.mode === 'tunnel2') {
     settings.scale = 1.4;
     settings.arcAngle = 1.7;
