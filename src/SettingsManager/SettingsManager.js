@@ -16,6 +16,7 @@ module.exports = class SettingsManager {
         color: '#FFF',
         backgroundColor: '#000000'
       },
+      bgSpaceGradient: '#CCC',
       mode: 'preset 1',
       lastModified: 'preset 1'
     }
