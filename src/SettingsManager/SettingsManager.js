@@ -3,6 +3,7 @@ module.exports = class SettingsManager {
   constructor() {
     this.settings = {
       drawManager: {
+        active: true,
         size: 150,
         angle: 0.4,
         scale: 0.67,
@@ -20,6 +21,15 @@ module.exports = class SettingsManager {
         bgSpaceGradient: '#CCC',
         mode: 'preset 1',
         lastModified: 'preset 1'
+      },
+      backgroundSpace: {
+        active: true,
+        loopContextGlobalAplha: 0.4,
+        bgSpaceGradient: '#CCC',
+        loopContextGlobalAlphaTwo: 1,
+        strokeStyle: '#FFF',
+        drawPointFillStyle: '#FAA',
+        drawPointGlobalAlpha: 1
       }
     }
     this.presets = presets.data
@@ -32,7 +42,6 @@ module.exports = class SettingsManager {
         for (let keyIndex = 0; keyIndex < keyArray.length; keyIndex++) {
           const keyPreset = keyArray[keyIndex];
           this.settings.drawManager[keyPreset] = preset[keyPreset];
-
         }
       }
     }

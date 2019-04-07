@@ -1,7 +1,7 @@
 const DrawManager = require('../DrawManager');
 const GUIManager = require('../GUIManager');
 const SettingsManager = require('../SettingsManager');
-const SpaceDraw = require('../DrawManager/SpaceDraw');
+const SpaceDraw = require('../SpaceDraw');
 module.exports = class CanvasManager {
   constructor() {
     this.settingsManager = new SettingsManager();

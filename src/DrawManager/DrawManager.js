@@ -88,6 +88,10 @@ module.exports = class DrawManager {
     document.querySelector('body').style.backgroundColor = this.settings.strokeColor.backgroundColor;
   }
   drawMethodSecond() {
+    if(!this.settings.active) {
+      this.context.clearRect(-this.width, -this.height, this.width*2, this.height*2);
+      return;
+    }
     if (this.settings.animate) this.settings.angle += 0.02 * this.settings.speed;
     this.points = [];
     this.bufferContext.save();

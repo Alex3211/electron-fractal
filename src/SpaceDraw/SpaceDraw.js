@@ -1,6 +1,6 @@
 module.exports = class SpaceDraw {
   constructor(settings, width, height, canvas, context, bufferCanvas, bufferContext) {
-    this.settings = settings;
+    this.settings = settings.backgroundSpace;
     this.canvas = canvas;
     this.context = context;
     this.screenWidth = width;
@@ -18,7 +18,6 @@ module.exports = class SpaceDraw {
 
   generatePoints() {
     var i = 1000;
-
     for (i; i > -1; --i) {
       var point3D = {
         x: (1 - Math.random() * 2) * 600,
@@ -34,11 +33,10 @@ module.exports = class SpaceDraw {
   }
 
   loop() {
-    this.context.globalAlpha = 0.4;
+    this.context.globalAlpha = this.settings.loopContextGlobalAplha;
     this.context.fillStyle = this.settings.bgSpaceGradient;
     this.context.fillRect(0, 0, this.screenWidth, this.screenHeight);
-    this.context.globalAlpha = 1;
-
+    this.context.globalAlpha = this.settings.loopContextGlobalAlphaTwo;
     this.updatePoints();
     this.renderPoints();
     this.renderWire();
@@ -66,9 +64,13 @@ module.exports = class SpaceDraw {
   }
 
   renderWire() {
+    if(!this.settings.active) {
+      this.context.clearRect(-this.width, -this.height, this.width*2, this.height*2);
+      return;
+    }
     this.context.globalAlpha = 0.02;
     this.context.lineWidth = 1;
-    this.context.strokeStyle = '#FFF';
+    this.context.strokeStyle = this.settings.strokeStyle;
     this.context.beginPath();
 
     var i = this.points.length - 1;
@@ -110,12 +112,16 @@ module.exports = class SpaceDraw {
   }
 
   drawPoint(point, scale) {
+    if(!this.settings.active) {
+      this.context.clearRect(-this.width, -this.height, this.width*2, this.height*2);
+      return;
+    }
     this.context.globalAlpha = scale;
-    this.context.fillStyle = '#FAA';
+    this.context.fillStyle = this.settings.drawPointFillStyle;
     this.context.beginPath();
     this.context.rect(point.x, point.y, (1.6 * scale > 0) ? 1.6 * scale : 1, (1.6 * scale > 0) ? 1.6 * scale : 1);
     this.context.fill();
     this.context.closePath();
-    this.context.globalAlpha = 1;
+    this.context.globalAlpha = this.settings.drawPointGlobalAlpha;
   }
 }
