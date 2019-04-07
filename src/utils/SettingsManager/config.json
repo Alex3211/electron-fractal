@@ -1,0 +1,42 @@
+{
+  "data": [
+    {
+      "is": "preset 1",
+      "size": 150,
+      "angle": 0.4,
+      "scale": 0.67,
+      "iterations": 10,
+      "animate": true,
+      "speed": 0.3,
+      "offset": 0,
+      "slices": 13,
+      "arcAngle": 0.1,
+      "strokeSize": 1,
+      "lastModified": "preset 1"
+    }, 
+    {
+      "is": "tunnel",
+      "scale": 1.2,
+      "arcAngle": 0.3,
+      "animate": true,
+      "angle": 0,
+      "iterations": 7,
+      "speed": 0.01,
+      "offset": 1,
+      "slices": 30,
+      "lastModified": "tunnel"
+    }, 
+    {
+      "is": "tunnel2",
+      "scale": 1.4,
+      "arcAngle": 1.7,
+      "animate": true,
+      "angle": 3.14,
+      "iterations": 5,
+      "speed": 0.02,
+      "offset": 0,
+      "slices": 40,
+      "lastModified": "tunnel2"
+    }
+  ]
+}
