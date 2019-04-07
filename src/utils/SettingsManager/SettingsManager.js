@@ -19,6 +19,7 @@ module.exports = class SettingsManager {
       mode: 'preset 1',
       lastModified: 'preset 1'
     }
+    this.presets = presets.data
   }
   changeSettingsConfig() {
     for (let index = 0; index < presets.data.length; index++) {
