@@ -51,6 +51,7 @@ var context = canvas.getContext('2d');
 
 var bufferCanvas = document.createElement('canvas');
 var bufferContext = bufferCanvas.getContext('2d');
+bufferContext.globalCompositeOperation = "lighter";
 
 window.addEventListener('resize', resize);
 resize();
@@ -79,6 +80,7 @@ function draw() {
   bufferContext.lineTo(0, -settings.size * settings.scale);
   bufferContext.stroke();
 
+
   drawShape({x: 0, y: -settings.size * settings.scale, angle: -Math.PI * 0.5, size: settings.size});
 
   for (var i = 0; i < settings.iterations; i++) {
@@ -101,6 +103,11 @@ function draw() {
       bufferContext.beginPath();
       bufferContext.moveTo(point.x, point.y);
       bufferContext.lineTo(x, y);
+      bufferContext.lineTo(x+45, x);
+      bufferContext.lineTo(y, y+50);
+      bufferContext.closePath();
+      bufferContext.shadowBlur = 10;
+
       bufferContext.stroke();
 
       points.unshift({x: x, y: y, angle: angle, size: size});
@@ -110,14 +117,16 @@ function draw() {
   var side2 = height * 0.5;
   var radius = Math.sqrt(side1 * side1 + side2 * side2);
 
-  bufferContext.globalCompositeOperation = 'destination-in';
+  bufferContext.globalCompositeOperation = 'difference';
   bufferContext.fillStyle = 'red';
   bufferContext.beginPath();
 
   if(settings.mode === 'preset 1') {
     bufferContext.arc(0, 0, radius, -(Math.PI * settings.arcAngle + (Math.PI / settings.slices)), -(Math.PI * 0.5 - (Math.PI / settings.slices)));
+
   } else if(settings.mode === 'tunnel' || settings.mode === 'tunnel2') {
     bufferContext.rect(0, 0, radius, -(Math.PI * settings.arcAngle + (Math.PI / settings.slices)), -(Math.PI * 0.5 - (Math.PI / settings.slices)));
+
   }
   bufferContext.lineTo(0, 0);
   bufferContext.closePath();
