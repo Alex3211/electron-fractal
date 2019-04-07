@@ -1,6 +1,6 @@
-const DrawManager = require('./DrawManager');
-const GUIManager = require('./GUIManager');
-const SettingsManager = require('./SettingsManager');
+const DrawManager = require('../DrawManager');
+const GUIManager = require('../GUIManager');
+const SettingsManager = require('../SettingsManager');
 module.exports = class CanvasManager {
   constructor() {
     this.settingsManager = new SettingsManager();
