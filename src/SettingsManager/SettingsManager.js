@@ -5,7 +5,7 @@ module.exports = class SettingsManager {
       size: 150,
       angle: 0.4,
       scale: 0.67,
-      iterations: 10,
+      iterations: 5,
       animate: true,
       speed: 0.3,
       offset: 0,

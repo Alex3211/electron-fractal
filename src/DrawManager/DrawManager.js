@@ -14,6 +14,12 @@ module.exports = class DrawManager {
     var size = point.size * this.settings.scale;
     var x = point.x + Math.cos(angle) * size;
     var y = point.y + Math.sin(angle) * size;
+    // this.bufferContext.lineWidth = 3; // WORKS
+    // this.bufferContext.setLineDash([1, 5]);
+    // this.bufferContext.globalAlpha = 0.5;
+    // this.bufferContext.lineCap = 'round';
+    // this.bufferContext.shadowColor = 'blue';
+    // this.bufferContext.shadowBlur = 15;
     this.bufferContext.beginPath();
     this.bufferContext.moveTo(point.x, point.y);
     this.bufferContext.lineTo(x, y);
